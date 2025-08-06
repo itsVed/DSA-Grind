@@ -11,7 +11,7 @@ public:
 
         if(dp[i][amount] != -1) return dp[i][amount];
 
-        int take = INT_MAX;
+        int take = 1e9;
         if(coin[i] <= amount) take = 1 + f(i, coin, amount - coin[i], dp);
 
         int skip = 0 + f(i - 1, coin, amount, dp);
