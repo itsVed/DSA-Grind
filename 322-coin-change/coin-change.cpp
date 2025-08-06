@@ -2,6 +2,7 @@ class Solution {
 public:
 
     int f(int i, vector<int> & coin, int amount, vector<vector<int>> &dp){
+        if (amount == 0) return 0;
         
         if(i == 0){
             if(amount % coin[i] == 0) return amount/coin[i];
