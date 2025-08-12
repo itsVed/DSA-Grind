@@ -27,7 +27,8 @@ public:
 
     int maxProfit(vector<int>& prices) {
         n = prices.size();
-        dp.assign(n+1, vector<int>(2, -1));
+
+        dp.assign(n, vector<int>(2, -1));
         return f(0, 1, prices);
     }
 };
