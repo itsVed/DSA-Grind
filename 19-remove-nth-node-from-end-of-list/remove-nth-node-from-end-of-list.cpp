@@ -27,7 +27,7 @@ public:
         temp = head;
 
         int i = 1;
-        while (i < len - n) {
+        while (i != len - n) {
             temp = temp->next;
             i++;
         }
