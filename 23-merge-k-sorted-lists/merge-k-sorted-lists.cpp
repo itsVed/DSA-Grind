@@ -28,7 +28,7 @@ public:
             pq.pop();
 
             temp->next = it.second;
-            temp = it.second;
+            temp = temp->next ;
 
             if(it.second->next) pq.push({it.second->next->val, it.second->next});
         }
