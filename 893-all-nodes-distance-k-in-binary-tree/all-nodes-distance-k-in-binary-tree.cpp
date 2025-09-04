@@ -57,7 +57,7 @@ public:
                     visited[node->right] = true;
                     q.push(node->right);
                 }
-                if(parent.count(node) and !visited[parent[node]]){
+                if(parent[node] and !visited[parent[node]]){
                     visited[parent[node]] = true;
                     q.push(parent[node]);
                 }
