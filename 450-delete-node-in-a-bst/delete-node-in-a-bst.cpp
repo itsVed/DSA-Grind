@@ -53,16 +53,16 @@ public:
             return root->left;
         }
 
-        TreeNode *rightchild = root->right;
-        TreeNode *lastright = findlastright(root->left);
-        lastright->right = rightchild; 
+        TreeNode *leftchild = root->left;
+        TreeNode *lastleft = findlastright(root->right);
+        lastleft->left = leftchild; 
 
-        return root->left;
+        return root->right;
     }
 
     TreeNode *findlastright(TreeNode *root){
-        if(root->right == NULL) return root;
+        if(root->left == NULL) return root;
 
-        return  findlastright(root->right);
+        return  findlastright(root->left);
     }
 };
