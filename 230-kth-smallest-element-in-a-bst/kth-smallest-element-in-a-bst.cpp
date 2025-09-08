@@ -11,29 +11,29 @@
  */
 class Solution {
 public:
-    priority_queue<int, vector<int>, greater<int>> pq;
-    
-    void traverse(TreeNode *root){
+    int ans = 0;
+    int count = 0;
+
+    void inorder(TreeNode *root, int k){
         if(!root) return;
 
-        pq.push(root->val);
+        inorder(root->left, k);
 
-        if(root->left) traverse(root->left);
-        if(root->right) traverse(root->right);
-        
+        count++;
+
+        if(count == k){
+            ans = root->val;
+            return;
+        }
+
+        inorder(root->right, k);
+
     }
 
     int kthSmallest(TreeNode* root, int k) {
         if(!root) return -1;
 
-        int ans = 0;
-        traverse(root);
-
-        while(k > 0 and !pq.empty()){
-            ans = pq.top();
-            pq.pop();
-            k--;
-        }
+        inorder(root, k);
 
         return ans;
     }
