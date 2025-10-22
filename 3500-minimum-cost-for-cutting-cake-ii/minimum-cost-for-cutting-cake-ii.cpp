@@ -26,13 +26,11 @@ public:
 
         while(i < row){
             cost += h[i] * vert;
-            horz++;
             i++;
         }
 
         while(j < col){
             cost += v[j] * horz;
-            vert++;
             j++;
         }
 
