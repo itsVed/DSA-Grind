@@ -16,8 +16,8 @@ public:
     };
 
     int nextBeautifulNumber(int n) {
-        auto it = *upper_bound(num.begin(), num.end(), n);
+        auto it = upper_bound(num.begin(), num.end(), n);
 
-        return it;
+        return *it;
     }
 };
