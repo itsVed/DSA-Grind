@@ -1,7 +1,7 @@
 class Solution {
 public:
 
-    set<int> num = {
+    vector<int> num = {
         1, 22, 122, 212, 221, 333, 1333, 3133, 3313, 3331,
         4444, 14444, 22333, 23233, 23323, 23332, 32233, 32323, 32332, 33223,
         33232, 33322, 41444, 44144, 44414, 44441, 55555, 122333, 123233, 123323,
@@ -16,8 +16,8 @@ public:
     };
 
     int nextBeautifulNumber(int n) {
-        auto it = num.upper_bound(n);
+        auto it = *upper_bound(num.begin(), num.end(), n);
 
-        return *it;
+        return it;
     }
 };
