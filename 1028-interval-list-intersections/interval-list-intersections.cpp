@@ -15,14 +15,14 @@ public:
 
             if(st <= et) ans.push_back({st, et});
 
-            if(firstList[i][1] <= secondList[j][1]){
+            if(firstList[i][1] < secondList[j][1]){
                 i++;
             }
             else{
                 j++;
             }
         }
-        
+
         return ans;
     }
 };
