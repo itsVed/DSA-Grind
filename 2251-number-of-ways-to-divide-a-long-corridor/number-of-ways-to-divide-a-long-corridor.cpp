@@ -1,30 +1,43 @@
+#define MOD 1000000007
+using lli = long long;
+
 class Solution {
 public:
-    int MOD = 1e9 + 7;
+    vector<vector<lli>> dp;
+    string corridor;
+    lli n;
 
-    int numberOfWays(string corridor) {
-
-        vector<int> arr;
-
-        for(int i=0; i < corridor.size(); i++){
-            if(corridor[i] == 'S'){
-                arr.push_back(i);
-            }
-        }
-        int seats = arr.size();
-
-        if(seats == 0 || seats % 2 != 0 || seats == 1) return 0;
-        if(seats == 2) return 1;
-
-        int prev = arr[1];
-        long long ans = 1;
-
-        for(int i=2; i < arr.size(); i+=2){
-            int gap = arr[i] - prev;
-            ans = (ans * gap) % MOD;
-            prev = arr[i + 1];
+    lli solve(lli idx, lli s) {
+        // Base case: last index
+        if (idx == n - 1) {
+            return (s + (corridor[idx] == 'S') == 2);
         }
 
-        return (int)ans;
+        if (dp[idx][s] != -1) return dp[idx][s];
+
+        lli ns = s + (corridor[idx] == 'S');
+
+        // Invalid if more than 2 seats
+        if (ns > 2) return dp[idx][s] = 0;
+
+        lli ways = 0;
+
+        // Option 1: continue current segment
+        ways = (ways + solve(idx + 1, ns)) % MOD;
+
+        // Option 2: cut if exactly 2 seats
+        if (ns == 2) {
+            ways = (ways + solve(idx + 1, 0)) % MOD;
+        }
+
+        return dp[idx][s] = ways;
+    }
+
+    int numberOfWays(string s) {
+        corridor = s;
+        n = corridor.size();
+        dp.assign(n, vector<lli>(3, -1));
+
+        return (int) solve(0, 0);
     }
 };
