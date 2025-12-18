@@ -1,39 +1,48 @@
 class Solution {
 public:
-    long long maxProfit(vector<int>& p, vector<int>& s, int k) {
-        int n = p.size();
-        long long base = 0;
+    long long maxProfit(vector<int>& prices, vector<int>& strategy, int k) {
+        int n = prices.size();
 
-        for (int i = 0; i < n; i++) {
-            base += 1LL * s[i] * p[i];
+        vector<long long> profit(n);
+
+        long long initial = 0;
+
+        for(int i=0; i < n; i++){
+            profit[i] = (long long) strategy[i] * prices[i];
+            initial += profit[i];
         }
 
-        vector<long long> A(n), B(n);
-        
-        for (int i = 0; i < n; i++) {
-            A[i] = -(1LL * s[i] * p[i]);
-            B[i] = (1 - s[i]) * 1LL * p[i];
+
+        int i = 0;
+        int j = 0;
+
+        long long modified = 0;
+        long long original = 0;
+        long long profitgain = 0;
+
+        while(j < n){
+            
+            original += profit[j];
+
+            if(j - i + 1 > k / 2){
+                modified += prices[j];
+            }
+
+
+            if(j - i + 1 > k){
+                modified -= prices[i + k / 2];
+                original -= profit[i];
+
+                i++;
+            }
+
+            if(j - i + 1 == k){
+                profitgain = max(profitgain, modified - original);
+            }
+
+            j++;
         }
 
-        vector<long long> prefixA(n), prefixB(n);
-        prefixA[0] = A[0];
-        prefixB[0] = B[0];
-
-        for (int i = 1; i < n; i++) {
-            prefixA[i] = prefixA[i-1] + A[i];
-            prefixB[i] = prefixB[i-1] + B[i];
-        }
-
-        int half = k/2;
-        long long maxGain = 0;
-
-        for (int i = 0; i + k <= n; i++) {
-            long long part1 = prefixA[i + half - 1] - (i > 0 ? prefixA[i - 1] : 0);
-            long long part2 = prefixB[i + k - 1] - prefixB[i + half - 1];
-            long long gain = part1 + part2;
-            maxGain = max(maxGain, gain);
-        }
-
-        return base + maxGain;
+        return initial + profitgain;
     }
 };
