@@ -26,7 +26,7 @@ public:
                 }
             }
 
-            nums[idx] = nums[idx] + nums[idx + 1];
+            nums[idx] = minSum;
             nums.erase(nums.begin() + idx + 1);
 
             operations++;
